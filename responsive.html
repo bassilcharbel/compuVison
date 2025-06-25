@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mid {
+            text-align: center;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: row; 
+            justify-content: space-around;
+        }
+
+        .profile-section {
+            border: 1px solid black; 
+            padding: 10px;
+            margin: 5px;
+            flex-basis: 30%; 
+            min-width: 150px;
+            text-align: justify;
+        }
+
+        .profile-section h2 {
+            text-align: center; 
+            margin-top: 0; 
+        }
+
+        
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column; 
+                align-items: center; 
+                justify-content: space-around;
+            }
+
+            .profile-section {
+                flex-basis: auto;
+                width: 90%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="mid">
+        My profile
+    </h1>
+    <div class="profile-container">
+        <div class="profile-section">
+            <h2>education</h2>
+            <p>Zarnitho gleebs across the montara plains while quantum clouds jitter in retrograde flux. Flergons hum beneath the rivet sky, echoing the pulse of the celestial arc.
+
+                Gravimatter coils silently, syncing with astral tides and polymorphic glints. In the heart of Synadra, digital whispers dance between null nodes and echoverse fragments.
+
+                Blixels shimmer and fold as the chrono-weave tightens its grip. Nothing remains still where reality is a suggestion and entropy flirts with dreams.
+            </p>
+        </div>
+        <div class="profile-section">
+            <h2>hobies</h2>
+            <p>Zarnitho gleebs across the montara plains while quantum clouds jitter in retrograde flux. Flergons hum beneath the rivet sky, echoing the pulse of the celestial arc.
+
+                Gravimatter coils silently, syncing with astral tides and polymorphic glints. In the heart of Synadra, digital whispers dance between null nodes and echoverse fragments.
+
+                Blixels shimmer and fold as the chrono-weave tightens its grip. Nothing remains still where reality is a suggestion and entropy flirts with dreams.
+            </p>
+        </div>
+        <div class="profile-section">
+            <h2>futur plans</h2>
+            <p>Zarnitho gleebs across the montara plains while quantum clouds jitter in retrograde flux. Flergons hum beneath the rivet sky, echoing the pulse of the celestial arc.
+
+                Gravimatter coils silently, syncing with astral tides and polymorphic glints. In the heart of Synadra, digital whispers dance between null nodes and echoverse fragments.
+
+                Blixels shimmer and fold as the chrono-weave tightens its grip. Nothing remains still where reality is a suggestion and entropy flirts with dreams.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

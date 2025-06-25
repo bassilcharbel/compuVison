@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Example</title>
+    <style>
+.hidden {
+    display: none;
+}
+
+#toggleElement {
+    margin-top: 10px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+#toggleButton {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#toggleButton:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button id="toggleButton">Toggle Content</button>
+    <div id="toggleElement" class="hidden">
+        <p>This is the content that will be toggled.</p>
+    </div>
+
+    <script>document.addEventListener('DOMContentLoaded', function() {
+    const toggleButton = document.getElementById('toggleButton');
+    const toggleElement = document.getElementById('toggleElement');
+
+    toggleButton.addEventListener('click', function() {
+        toggleElement.classList.toggle('hidden');
+        alert("you have triggered the toggle effect");
+    });
+});</script>
+</body>
+</html>
