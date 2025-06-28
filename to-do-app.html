@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vanilla To‑Do App</title>
+  <Style>
+    /* --- CSS reset (tiny) --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- page layout --- */
+body {
+  font-family: system-ui, sans-serif;
+  background: #f9f9fb;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  color: #333;
+}
+
+.app {
+  width: min(90vw, 400px);
+  background: #fff;
+  padding: 2rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* --- heading --- */
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+
+/* --- form row --- */
+#todo-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+#todo-input {
+  flex: 1;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+#todo-form button {
+  padding: 0 0.9rem;
+  font-size: 1.5rem;
+  background: #4e73df;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#todo-form button:hover {
+  background: #385ecb;
+}
+
+/* --- list --- */
+#todo-list {
+  list-style: none;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.todo-item:last-child {
+  border-bottom: none;
+}
+
+.todo-item input[type="checkbox"] {
+  accent-color: #4e73df;
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.todo-item.completed label {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* --- footer --- */
+footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+}
+
+#clear-completed {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  padding: 0;
+}
+
+#clear-completed:hover {
+  text-decoration: underline;
+}
+
+  </Style>
+</head>
+<body>
+  <main class="app">
+    <h1>My To‑Dos</h1>
+
+    <!-- input row -->
+    <form id="todo-form" autocomplete="off">
+      <input id="todo-input" type="text" placeholder="Add a task…" />
+      <button type="submit" aria-label="Add task">＋</button>
+    </form>
+
+    <!-- list container -->
+    <ul id="todo-list"></ul>
+
+    <!-- footer -->
+    <footer>
+      <span id="items-left">0 items left</span>
+      <button id="clear-completed">Clear completed</button>
+    </footer>
+  </main>
+
+  <script>
+    // Grab elements
+const form = document.getElementById("todo-form");
+const input = document.getElementById("todo-input");
+const list  = document.getElementById("todo-list");
+const itemsLeft = document.getElementById("items-left");
+const clearBtn = document.getElementById("clear-completed");
+
+// In‑memory store
+let todos = [];
+
+// ----- Helpers -----
+function render() {
+  list.innerHTML = "";                         // Clear old nodes
+  todos.forEach((todo, i) => {
+    const li = document.createElement("li");
+    li.className = "todo-item" + (todo.done ? " completed" : "");
+    
+    // checkbox
+    const check = document.createElement("input");
+    check.type = "checkbox";
+    check.checked = todo.done;
+    check.addEventListener("change", () => toggleTodo(i));
+
+    // label
+    const label = document.createElement("label");
+    label.textContent = todo.text;
+
+    // remove button (×)
+    const remove = document.createElement("button");
+    remove.textContent = "×";
+    remove.ariaLabel = "Delete task";
+    remove.style.cssText =
+      "margin-left:auto;background:none;border:none;font-size:1.2rem;color:#aaa;cursor:pointer";
+    remove.addEventListener("click", () => deleteTodo(i));
+
+    li.append(check, label, remove);
+    list.append(li);
+  });
+
+  // footer stats
+  const activeCount = todos.filter(t => !t.done).length;
+  itemsLeft.textContent = `${activeCount} item${activeCount !== 1 ? "s" : ""} left`;
+}
+
+function addTodo(text) {
+  if (!text.trim()) return;
+  todos.push({ text, done: false });
+  input.value = "";
+  render();
+}
+
+function toggleTodo(index) {
+  todos[index].done = !todos[index].done;
+  render();
+}
+
+function deleteTodo(index) {
+  todos.splice(index, 1);
+  render();
+}
+
+function clearCompleted() {
+  todos = todos.filter(t => !t.done);
+  render();
+}
+
+// ----- Event listeners -----
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  addTodo(input.value);
+});
+
+clearBtn.addEventListener("click", clearCompleted);
+
+// Initial paint
+render();
+
+  </script>
+</body>
+</html>
