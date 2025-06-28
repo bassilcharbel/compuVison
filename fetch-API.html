@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Weather</title>
+  <style>
+    body {font-family: system-ui; display:grid; place-items:center; height:100vh;}
+    .card {padding:2rem 2.5rem; border:1px solid #eee; border-radius:.75rem; box-shadow:0 1px 6px rgba(0,0,0,.05);}
+    input,button {padding:.5rem .8rem; font-size:1rem;}
+    button {margin-left:.5rem; cursor:pointer;}
+    #out {margin-top:1rem;}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Weather Lookup</h2>
+    <input id="city" placeholder="Enter city…">
+    <button id="go">Fetch</button>
+    <div id="out"></div>
+  </div>
+
+  <script>
+    async function getCoords(city) {
+      const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (!data.results?.length) throw new Error('City not found');
+      return data.results[0];          // {latitude, longitude, …}
+    }
+
+    async function getWeather(lat, lon) {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+      const res  = await fetch(url);
+      return (await res.json()).current_weather; // {temperature, windspeed, weathercode …}
+    }
+
+    document.getElementById('go').addEventListener('click', async () => {
+      const out  = document.getElementById('out');
+      out.textContent = 'Loading…';
+      try {
+        const {latitude, longitude, name, country} = await getCoords(document.getElementById('city').value);
+        const weather = await getWeather(latitude, longitude);
+        out.textContent = `${name}, ${country}: ${weather.temperature} °C — wind ${weather.windspeed} km/h`;
+      } catch (err) {
+        out.textContent = err.message;
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
