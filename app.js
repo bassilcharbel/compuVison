@@ -1,0 +1,8 @@
+const names=require('./4-names')
+const sayHi=require('./5-utlities')
+const person=require('./1-intro')
+require('./7-mind-grenad')
+sayHi("susan")
+sayHi(names.peter)
+sayHi(names.jhon)
+console.log(person)
