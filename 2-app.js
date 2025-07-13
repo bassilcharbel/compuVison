@@ -1,9 +1,15 @@
-const { readFileSync, writeFileSync } = require('fs');
-
-const first = readFileSync('./content/first.txt', 'utf8');
-const second = readFileSync('./content/subfolder/second.txt', 'utf8');
-
-writeFileSync(
-  './content/result-sync.txt',
-  'Here is the result: ' + first + ', ' + second
-);
+const http =require('http');
+const server=http.createServer((req,res)=>{
+  if(req.url==='/'){
+    res.end('welcome to our home page')
+  }
+  if(req.url==='/home'){
+    res.end('here is our short history')
+  }
+  res.end(`
+    <h1>oops!</h1>
+    <p>we cant seem to find the page you are looking for</p>
+    <a href="/">back home</a>
+    `)
+})
+server.listen(5000)
