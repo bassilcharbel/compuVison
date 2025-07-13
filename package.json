@@ -1,0 +1,23 @@
+{
+  "name": "intrenship",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "lodash": "^4.17.21"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bassilcharbel/compuVison.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bassilcharbel/compuVison/issues"
+  },
+  "homepage": "https://github.com/bassilcharbel/compuVison#readme",
+  "description": ""
+}
